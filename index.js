@@ -1,5 +1,3 @@
-// console.log(gsap);
-
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
@@ -7,13 +5,9 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 const scoreElement = document.getElementById('scoreElement');
-// console.log(scoreElement);
 const finalScore = document.getElementById('finalScore');
-
 const highScore = document.getElementById('highScore');
-
 const startGameButton = document.getElementById('startGameButton');
-
 const modal = document.getElementById('modal');
 
 class Player{
@@ -114,13 +108,8 @@ const x = canvas.width / 2;
 const y = canvas.height / 2;
 
 let player = new Player(x, y, 10, 'white');
-// player.draw();
-
 let projectiles = [];
-// const projectile = new Projectile(x, y, 5, 'red', {x:1, y:1});
-
 let enemies = [];
-
 let particles = [];
 
 function init(){
@@ -165,7 +154,6 @@ function animate(){
     animationId = requestAnimationFrame(animate);
     context.fillStyle = 'rgba(0, 0, 0, 0.1)';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    // context.clearRect(0, 0, canvas.width, canvas.height);
     player.draw();
 
     particles.forEach((particle, index) => {
@@ -181,7 +169,6 @@ function animate(){
 
     projectiles.forEach((projectile, index) => {
         projectile.update();
-        // console.log(projectile);
 
         if(projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectile.y + projectile.radius < 0 || projectile.y - projectile.radius > canvas.height){
             setTimeout(() => {
@@ -205,8 +192,6 @@ function animate(){
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
 
             if(dist - projectile.radius - enemy.radius < 1){
-                // console.log("Enemy removed");
-
                 for(let i = 0; i < 8; i++){
                     particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {x: (Math.random() - 0.5) * (7 * Math.random()), y: (Math.random() - 0.5) * (7 * Math.random())}));
                 }
@@ -218,7 +203,6 @@ function animate(){
                     high = Math.max(high, score);
                     highScore.innerHTML = high;
 
-                    // enemy.radius -= 10;
                     gsap.to(enemy, {
                         radius: enemy.radius - 10
                     });
@@ -258,9 +242,6 @@ window.addEventListener('click', (event) => {
         'white',
         velocity
     ));
-    // const projectile = new Projectile(x, y, 5, 'red', {x:1, y:1});
-    // projectile.draw();
-    // console.log(event, projectiles);
 })
 
 startGameButton.addEventListener('click', (event) => {
@@ -269,7 +250,3 @@ startGameButton.addEventListener('click', (event) => {
     spawnEnemies();
     modal.style.display = 'none';
 })
-
-// animate();
-// spawnEnemies();
-// console.log(context);
